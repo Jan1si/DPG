@@ -1,0 +1,189 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+
+}
+$h1Text: 500;
+$h2Text: 400;
+$h3Text: 300;
+
+.App{
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-image: url("./img/cosmos-1845140_1920 1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container{
+  width: 390px;
+  margin: 0 auto;
+  padding-top: 90px;
+  padding-bottom: 40px;
+}
+
+.helloBlock{
+  color: white;
+  text-align: center;
+  font-size: 25px;
+  font-weight: $h1Text;
+}
+
+.formBlock{
+  background: #171929;
+  margin-top: 25px;
+  padding: 45px;
+  border-radius: 27px;
+}
+
+.info{
+  text-align: center;
+  .baseText{
+    color: white;
+    font-weight: $h2Text;
+    font-size: 18px;
+  }
+  .promtText {
+    margin-top: 10px;
+    position: relative;
+    color: #797EA3;
+    font-weight: $h3Text;
+    font-size: 15px;
+    &::before {
+      position: absolute;
+      content: '*';
+      left: 111px;
+      top: 0;
+      color: #3F4363;
+    }
+  }
+}
+
+.inputBlock{
+  display: flex;
+  flex-direction: column;
+  grid-gap: 40px;
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 7px;
+    >label {
+      position: relative;
+      width: fit-content;
+      color: #797EA3;
+      font-weight: $h3Text;
+      font-size: 15px;
+      &::after {
+        position: absolute;
+        content: '*';
+        color: #3F4363;
+        right: -10px;
+      }
+    }
+    > input {
+      background: none;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid #3F4363;
+      transition: .2s all ease-in-out;
+      color: white;
+      font-weight: $h2Text;
+      font-size: 18px;
+      &:focus {
+        border-color: white;
+        transition: .2s all ease-in-out;
+      }
+    }
+    >textarea {
+      resize: none;
+      height: 50px;
+      background: none;
+      outline: none;
+      border: none;
+      border-bottom: 2px solid #3F4363;
+      transition: .2s all ease-in-out;
+      color: white;
+      font-weight: $h2Text;
+      font-size: 18px;
+      &:focus {
+        border-color: white;
+        transition: .2s all ease-in-out;
+      }
+    }
+  }
+}
+
+.checkBoxGroup {
+  display: flex;
+  align-items: center;
+  .checkbox-wrapper {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #2C2F47;
+    border-radius: 8px;
+    >input {
+      display: none;
+    }
+    >span {
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      border-radius: 8px;
+    }
+    > label {
+      position: absolute;
+      display: block;
+      cursor: pointer;
+      //visibility: hidden;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+    }
+    #customCheckBox:checked+span {
+      background-image:url("./img/checked.svg");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-color: #3c3f64;
+    }
+  }
+
+  >label {
+    margin-left: 12px;
+    display: flex;
+    font-size: 15px;
+    font-weight: $h3Text;
+    color: #797EA3;
+    .link {
+      cursor: pointer;
+      color: #B9BEE5;
+      border-bottom: 1px solid #B9BEE5;
+      margin-left: 2px;
+    }
+  }
+}
+
+.btnSend{
+  outline: none;
+  border: none;
+  background: #2C2F47;
+  width: fit-content;
+  margin: 0 auto;
+  color: white;
+  font-size: 18px;
+  font-weight: $h2Text;
+  padding: 10px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: .2s all ease-in-out;
+  &:hover {
+    background: #3b3f5e;
+    transition: .2s all ease-in-out;
+  }
+}
