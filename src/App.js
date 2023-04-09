@@ -27,6 +27,9 @@ const App = () => {
                     <h1>Hello</h1>
                 </div>
                 <div className="formBlock">
+                    <div className="helloBlockAdaptive">
+                        <h1>Hello</h1>
+                    </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <section className="info">
                             <p className="baseText">For business enquiries please use the form below</p>
@@ -34,7 +37,7 @@ const App = () => {
                         </section>
                         <section className="inputBlock">
                             <div className="inputGroup">
-                                <label htmlFor="name">Name</label>
+                                <label className="labelInput requiredInput" htmlFor="name">Name</label>
                                 <input
                                 {...register('name', {
                                     required: "Поле обязательно к заполнению!",
@@ -45,7 +48,7 @@ const App = () => {
                                 </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="company">Company</label>
+                                <label className="labelInput requiredInput" htmlFor="company">Company</label>
                                 <input
                                 {...register('company',{
                                     required: "Поле обязательно к заполнению!",
@@ -56,7 +59,7 @@ const App = () => {
                                 </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="email">E-mail</label>
+                                <label className="labelInput requiredInput" htmlFor="email">E-mail</label>
                                 <input
                                 {...register('email',{
                                     required: "Поле обязательно к заполнению!",
@@ -71,23 +74,27 @@ const App = () => {
                                 </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="phone">Phone</label>
+                                <label className="labelInput" htmlFor="phone">Phone</label>
                                 <input {...register('phone', {
+                                   pattern: {
+                                       value : /(\d?)(\d{3})(\d{3})(\d{2})(\d{2})/g,
+                                       message: "Некорректный номер телефона!"
+                                   },
                                     minLength: {
                                         value: 11,
                                         message: "Минимальное число символов 11!"
                                     },
-                                })} type="text" />
+                                })} type="tel" />
                                 <div className="error">
-                                    {errors?.phone && <p>{errors.phone.message}</p>}
+                                    {errors?.phone && <p>{errors.phone.message || "Error"}</p>}
                                 </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="subject">Subject</label>
+                                <label className="labelInput " htmlFor="subject">Subject</label>
                                 <input {...register('subject')} type="text" />
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="message">Message</label>
+                                <label className="labelInput requiredInput" htmlFor="message">Message</label>
                                 <textarea {...register('message', {
                                     required: "Поле обязательно к заполнению!",
                                     minLength: {
@@ -107,7 +114,9 @@ const App = () => {
                                 <div className="checkbox-wrapper">
                                     <input
                                         id="customCheckBox"
-                                        name='accept'
+                                        {...register('accept', {
+                                            required: true
+                                        })}
                                         type="checkbox"/>
                                     <span></span>
                                     <label htmlFor='customCheckBox'></label>
