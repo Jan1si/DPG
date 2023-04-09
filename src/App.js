@@ -1,6 +1,25 @@
 import React from 'react';
+import { useForm} from "react-hook-form";
 
 const App = () => {
+
+    const {
+        register,
+        formState: {
+            errors,
+            isValid
+        },
+        handleSubmit,
+        reset
+    } = useForm({
+        mode: 'onBlur'
+    });
+
+    const onSubmit = (data) => {
+        alert(JSON.stringify(data));
+        reset();
+    }
+
     return (
         <div className="App">
             <div className="container">
@@ -8,7 +27,7 @@ const App = () => {
                     <h1>Hello</h1>
                 </div>
                 <div className="formBlock">
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <section className="info">
                             <p className="baseText">For business enquiries please use the form below</p>
                             <p className="promtText">Required</p>
@@ -16,33 +35,89 @@ const App = () => {
                         <section className="inputBlock">
                             <div className="inputGroup">
                                 <label htmlFor="name">Name</label>
-                                <input type="text" name='name'/>
+                                <input
+                                {...register('name', {
+                                    required: "Поле обязательно к заполнению!",
+                                })}
+                                type="text"/>
+                                <div className="error">
+                                    {errors?.name && <p>{errors.name.message}</p>}
+                                </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="name">Company</label>
-                                <input type="text" name='company'/>
+                                <label htmlFor="company">Company</label>
+                                <input
+                                {...register('company',{
+                                    required: "Поле обязательно к заполнению!",
+                                })}
+                                type="text"/>
+                                <div className="error">
+                                    {errors?.company && <p>{errors.company.message}</p>}
+                                </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="name">E-mail</label>
-                                <input type="email" name='email'/>
+                                <label htmlFor="email">E-mail</label>
+                                <input
+                                {...register('email',{
+                                    required: "Поле обязательно к заполнению!",
+                                    pattern: {
+                                        value :/^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/,
+                                        message: "Некорректный адрес электронной почты!"
+                                    }
+                                })}
+                                type="email"/>
+                                <div className="error">
+                                    {errors?.email && <p>{errors.email.message}</p>}
+                                </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="name">Phone</label>
-                                <input type="text" name='phone'/>
+                                <label htmlFor="phone">Phone</label>
+                                <input {...register('phone', {
+                                    minLength: {
+                                        value: 11,
+                                        message: "Минимальное число символов 11!"
+                                    },
+                                })} type="text" />
+                                <div className="error">
+                                    {errors?.phone && <p>{errors.phone.message}</p>}
+                                </div>
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="name">Message</label>
-                                <textarea name="message"></textarea>
+                                <label htmlFor="subject">Subject</label>
+                                <input {...register('subject')} type="text" />
+                            </div>
+                            <div className="inputGroup">
+                                <label htmlFor="message">Message</label>
+                                <textarea {...register('message', {
+                                    required: "Поле обязательно к заполнению!",
+                                    minLength: {
+                                        value: 20,
+                                        message: "Минимум 20 символов!"
+                                    },
+                                    maxLength: {
+                                        value: 150,
+                                        message: "Максимум 150 символов!"
+                                    }
+                                })}></textarea>
+                                <div className="error">
+                                    {errors?.message && <p>{errors.message.message}</p>}
+                                </div>
                             </div>
                             <div className="checkBoxGroup">
                                 <div className="checkbox-wrapper">
-                                    <input id="customCheckBox" name='accept' type="checkbox"/>
+                                    <input
+                                        id="customCheckBox"
+                                        name='accept'
+                                        type="checkbox"/>
                                     <span></span>
                                     <label htmlFor='customCheckBox'></label>
                                 </div>
                                 <label htmlFor="accept">I accept <p className='link'>Terms and Privacy Policy</p> </label>
                             </div>
-                            <button className="btnSend">Send</button>
+                            <input type='submit'
+                               disabled={!isValid}
+                               className="btnSend"
+                               value="Send"/>
                         </section>
                     </form>
                 </div>

@@ -70,6 +70,11 @@ $h3Text: 300;
     display: flex;
     flex-direction: column;
     grid-gap: 7px;
+    .error{
+      color: #ee3b3b;
+      font-weight: $h3Text;
+      font-size: 15px   ;
+    }
     >label {
       position: relative;
       width: fit-content;
